@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.liyingtao.bean" >
+    <class name="Qy" table="cst_customer" >
+        <id name="qyId"  >
+            <generator class="native"></generator>
+        </id>
+        <property name="qyName" column="qyname" ></property>
+
+
+        <!-- 集合,一对多关系,在配置文件中配置 -->
+        <!--
+            name属性:集合属性名
+            column属性: 外键列名
+            class属性: 与我关联的对象完整类名
+         -->
+        <!--
+            级联操作:	cascade
+                save-update: 级联保存更新
+                delete:级联删除
+                all:save-update+delete
+            级联操作: 简化操作.目的就是为了少些两行代码.
+         -->
+        <!-- inverse属性: 配置关系是否维护.
+                true: customer不维护关系
+                false(默认值): customer维护关系
+
+            inverse属性: 性能优化.提高关系维护的性能.
+            原则: 无论怎么放弃,总有一方必须要维护关系.
+            一对多关系中: 一的一方放弃.也只能一的一方放弃.多的一方不能放弃.
+        -->
+        <set name="jds" inverse="true" cascade="all"  >
+            <key column="qyid11"></key>
+            <one-to-many  class="Jd" />
+        </set>
+
+
+    </class>
+</hibernate-mapping>
